@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="new">NEW LIST</button>
+    <dialog>
+        <form id="todo-form" method="dialog">
+            <label for="title">TITLE: </label>
+            <input type="text" id="title"/>
+
+            <label for="description">DESCRIPTION: </label>
+            <input type="text" id="description"/>
+
+            <label for="dueDate">DUE DATE: </label>
+            <input type="text" id="dueDate"/>
+
+            <legend>PRIORITY: </legend>
+            <label><input type="radio" name="priority" id="low" value="low" checked="checked"/>LOW</label>
+            <label><input type="radio" name="priority" id="medium" value="medium"/>MEDIUM</label>
+            <label><input type="radio" name="priority" id="high" value="high"/>HIGH</label>
+
+            <button id="submit">SUBMIT</button>
+            <button>CANCEL</button>
+        </form>
+    </dialog>
+</body>
+</html>
