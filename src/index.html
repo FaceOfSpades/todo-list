@@ -6,8 +6,21 @@
     <title>Document</title>
 </head>
 <body>
-    <button id="new">NEW LIST</button>
-    <dialog>
+    <div class="button-container">
+        <button id="new">NEW LIST</button>
+        <button id="new-project">NEW PROJECT</button>
+    </div>
+    <div class="body-container"></div>
+    <dialog id="project-name">
+        <form id="project-form" method="dialog">
+            <label for="name">PROJECT NAME: </label>
+            <input type="text" id="name"/>
+
+            <button id="submit-name">SUBMIT</button>
+            <button>CANCEL</button>
+        </form>
+    </dialog>
+    <dialog id="list-form">
         <form id="todo-form" method="dialog">
             <label for="title">TITLE: </label>
             <input type="text" id="title"/>

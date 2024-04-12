@@ -1,18 +1,54 @@
+import './styles.css';
+
 const createProjectArray = (function () {
     const projectArray = [];
     return {projectArray};
 })();
 
+const createProjectNameArray = (function () {
+    const projectNameArray = [];
+    return {projectNameArray};
+})();
+
 const createDefaultListArray = (function () {
     const Default = [];
     createProjectArray.projectArray.push(Default);
+    createProjectNameArray.projectNameArray.push("Default");
+    Display();
     return {Default};
 })();
 
-function getCurrentArray () {
-    let currentArray = "Default";
-    return currentArray;
+const createNewListArray = (function () {
+    const dialog = document.querySelector("#project-name");
+    const newArray = document.querySelector("#new-project");
+    newArray.addEventListener("click", () => {
+        dialog.showModal();
+    })
+})();
+
+const getName = (function () {
+    const name = document.querySelector("#name");
+    const dialog = document.querySelector("#project-name");
+    const submitBtn = document.querySelector("#submit-name");
+    const array = [];
+    submitBtn.addEventListener("click", (event) => {
+        event.preventDefault();
+        createProjectNameArray.projectNameArray.push(name.value);
+        createProjectArray.projectArray.push(array);
+        Display();
+        ResetProjectForm();
+        dialog.close();
+    });
+})();
+
+function initializeArray () {
+    let currentArray = 0;
+    const getCurrentArray = () => currentArray;
+    const setCurrentArray = (index) => currentArray = index;
+    return {getCurrentArray, setCurrentArray};
 }
+
+const array = initializeArray();
 
 function List (title, description, dueDate, priority) {
     this.title = title;
@@ -23,15 +59,12 @@ function List (title, description, dueDate, priority) {
 
 function newList (title, description, dueDate, priority) {
     const list = new List (title, description, dueDate, priority);
-    if (getCurrentArray() == "Default") {
-        createDefaultListArray.Default.push(list);
-    }
-    console.log(createDefaultListArray.Default);
-    console.log(createProjectArray.projectArray);
+    createProjectArray.projectArray[array.getCurrentArray()].push(list);
+    Display();
 }
 
 const getInfo = (function () {
-    const dialog = document.querySelector("dialog");
+    const dialog = document.querySelector("#list-form");
     const submitBtn = document.querySelector("#submit");
     const listTitle = document.querySelector("#title");
     const listDescription = document.querySelector("#description");
@@ -66,10 +99,53 @@ function ResetForm () {
     form.reset();
 }
 
+function ResetProjectForm() {
+    const form = document.querySelector("#project-form");
+    form.reset();
+}
+
 const pageStart = (function () {
-    const dialog = document.querySelector("dialog");
+    const dialog = document.querySelector("#list-form");
     const newBtn = document.querySelector("#new");
     newBtn.addEventListener("click", () => {
         dialog.showModal();
     });
+    const array = initializeArray();
+    return array;
 })();
+
+function Display () {
+    const body = document.querySelector(".body-container");
+    while (body.firstChild) {
+        body.removeChild(body.lastChild);
+    };
+    let index = 0;
+    createProjectArray.projectArray.forEach((e) => {
+        const selector = index;
+        const div = document.createElement("div");
+        div.className = "projectContainer";
+        const name = document.createElement("h2");
+        name.textContent = "PROJECT - " + createProjectNameArray.projectNameArray[index];
+        body.appendChild(div);
+        div.appendChild(name);
+        createProjectArray.projectArray[index].forEach((e) => {
+            const title = document.createElement("div");
+            const description = document.createElement("div");
+            const dueDate = document.createElement("div");
+            const priority = document.createElement("div");
+            title.textContent = "Title: " + e.title;
+            description.textContent = "Description: " + e.description;
+            dueDate.textContent = "Due Date: " +  e.dueDate;
+            priority.textContent = "Priority: " + e.priority;
+            div.appendChild(title);
+            div.appendChild(description);
+            div.appendChild(dueDate);
+            div.appendChild(priority);
+        });
+        div.addEventListener("click", () => {
+            array.setCurrentArray(selector);
+            div.classList.add("selected");
+        });
+        index++;
+    });
+}

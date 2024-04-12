@@ -1,0 +1,26 @@
+body {
+    background-color: rgb(181, 208, 209);
+    display: flex;
+    gap: 15px;
+}
+
+.body-container {
+    display: grid;
+    grid-gap: 15px;
+}
+
+.buttonContainer {
+    width: 100px;
+}
+
+.projectContainer {
+    background-color: rgb(99, 184, 212);
+    height: 200px;
+    width: 200px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.selected {
+    outline: 3px solid yellow;
+}
