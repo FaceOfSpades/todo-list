@@ -1,5 +1,7 @@
 import './styles.css';
 
+const array = initializeArray();
+
 const createProjectArray = (function () {
     const projectArray = [];
     return {projectArray};
@@ -15,7 +17,6 @@ const createDefaultListArray = (function () {
     createProjectArray.projectArray.push(Default);
     createProjectNameArray.projectNameArray.push("Default");
     Display();
-    return {Default};
 })();
 
 const createNewListArray = (function () {
@@ -30,11 +31,10 @@ const getName = (function () {
     const name = document.querySelector("#name");
     const dialog = document.querySelector("#project-name");
     const submitBtn = document.querySelector("#submit-name");
-    const array = [];
     submitBtn.addEventListener("click", (event) => {
         event.preventDefault();
         createProjectNameArray.projectNameArray.push(name.value);
-        createProjectArray.projectArray.push(array);
+        createProjectArray.projectArray.push(new Array());
         Display();
         ResetProjectForm();
         dialog.close();
@@ -47,8 +47,6 @@ function initializeArray () {
     const setCurrentArray = (index) => currentArray = index;
     return {getCurrentArray, setCurrentArray};
 }
-
-const array = initializeArray();
 
 function List (title, description, dueDate, priority) {
     this.title = title;
@@ -110,7 +108,6 @@ const pageStart = (function () {
     newBtn.addEventListener("click", () => {
         dialog.showModal();
     });
-    const array = initializeArray();
     return array;
 })();
 
